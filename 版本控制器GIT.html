@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>版本控制器之-----svn与git</title>
+</head>
+<body>
+	<div class="box">
+		1. 什么版本控制器？
+		2. 版本控制器的作用？
+		3. git是什么？
+		4. git与svn之间的比较
+		5. git的使用?
+
+
+		一。 什么是版本控制器？
+		     进行版本控制与协同多人开发的系统或者软件；
+		二.  版本的控制器作用？
+		      1. 版本控制  
+		         a. 抛弃掉一些不需要的修改（废版本）；
+		         b. 抛弃一些冲突问题（版本回滚）；
+		         c. 适当回到你需要的版本；
+		      2. 协同开发：
+		         方便的提交管理代码；
+		         组员之间的协调
+		      3. svn版本回控： 查看版本信息： show-log 根据需求回控相应的版本
+	    三. git是什么？
+	           也是版本控制器；分散式的版本控制器；
+	    四. git与SVN的比较：
+	           分散式与集中式的比较；
+	           集中式的版本控制系统：只有一台中央服务器进行协调，通过中央服务器进行协同管理
+	           运行原理：中央服务器：
+	                     1. 和并协同管理各个组员的提交更新；
+	                     2. 提供最新的项目；
+	                     版本库： 存放项目的版本更新信息所有的版本信息都在存在在这个仓库；
+	           (工作当中svn使用：我是组长负责带团队（某XX宝）:
+	           				环境搭建：
+								 组长安装服务器端visual svn（服务端）以及客户端Toris.SVN;
+								 其他组员客户端安装；
+
+							     二) 组长分配任务；
+							        前提：建立一个中央服务器（vusialSVN）
+							        作用：协同。。。。
+							     a) 在SVN 服务器为你项目X宝,建立相应的项目仓库：
+							        把项目基本的机构搭建好上传服务器，
+							     b) 形成初始的项目结构；
+							     c） 组员任务分配：项目地址给组员https://KKPMMZXK9GCREQX/svn/xxBao/
+
+							     d) 组员根据这个地址拉取上传；
+							        进行协同开发
+							    三）组员要操作的几个重要步骤：
+							        a) 项目的拉取： svn checkout;
+							           (根据组长给的仓库地址)
+							        b) 拉取下来的文件夹就可以作为工作区域
+							          （把项目另存一份）；
+							        c) 组员进行提交： svn commit;
+							    注意：组员的设置；团队的设置，权限设置
+	           )
+	           git: 分散式的版本控制系统：所有开发人员上面都有版本库信息，这样的好处是使得当中央服务器离线之后可以临时启用另外一台计算机作为服务器而不会影响项目开发；
+
+	           git使用： 1. 安装mysgit.傻瓜式安装
+	                     2. 用户名和密码的设置
+	                       $ git config --global user.name "Your Name"
+                           $ git config --global user.email "email@example.com"
+                         git bash J基本操作： cd D: 盘符
+
+                         svN，git 库：（存放版本信息，便于进行版本控制和项目协同）
+                        3. 创建一个仓库 ： git init;
+                           git区域分为： 工作区 -----暂存区-----库
+                                         a) 修改从工作区添加到暂存区（git add 文件名字）
+
+                                         b) 暂存区提交到库（形成版本信息）
+                                         git commit -m "关于此次版本修改说明"
+
+                           (git status 当前仓库文件的信息
+                                       红色代表文件在工作区有修改但是未提交到暂存区
+                                       绿色代表，工作区修改已经提交暂存，还未提交到库里面；
+                            git diff 能够显示出来修改内容；（！修改还是停留在工作区的时候使用）
+                         4. 版本回退：
+                           git log 版本信息查看；
+                               git reset --hard HEAD^ 回退到上一个版本；
+                               git reset --hard HEAD^^ 回退俩个本
+
+                          回滚到任何一个版本： git reset --hard 版本号
+                          git  reflog: 历史版本里面找版本号 
+                          cat  文件名 把当前文件内容打印出来
+
+                          git checkout -- 文件名 撤销在工作区的修改
+
+                          git reset HEAD file可以把暂存区的修改撤销掉（unstage），重新放回工作区：
+
+                          5. 删除文件 rm 文件名 （工作区删除）
+                                      git rm 文件名 （库里面删除）
+                                      git commit -m "sdsdd" 提交确认删除；
+
+                             工作区的删除撤销：
+                             $ git checkout -- test.txt
+
+                         6. 远程仓库的连接：
+                          第1步：创建SSH Key
+                          $ ssh-keygen -t rsa -C "youremail@example.com"
+                          第1步：创建SSH Key。在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件，如果已经有了，可直接跳到下一步。如果没有，打开Shell（Windows下打开Git Bash），创建SSH Key：
+
+						$ ssh-keygen -t rsa -C "youremail@example.com"
+						你需要把邮件地址换成你自己的邮件地址，然后一路回车，使用默认值即可，由于这个Key也不是用于军事目的，所以也无需设置密码。
+
+						如果一切顺利的话，可以在用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。
+
+						第2步：登陆GitHub，打开“Account settings”，“SSH Keys”页面：
+
+						然后，点“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容：
+
+
+						3。远程仓库：创建一个库
+						    本地与远程建立连接
+						    $ git remote add origin git@github.com:michaelliao/learngit.git
+
+                            推送到远程
+                            $ git push -u origin master
+                            拉取：
+                            git clone git@github.com:用户名/项目名
+                            git clone git@github.com:angular/angular.git
+
+                       接下来更多精彩：。。。。。。
+                       http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/0013752340242354807e192f02a44359908df8a5643103a000
+
+
+                       git 使用图形化的工具  sourceTree 图形化使用工具
+	</div>
+</body>
+</html>
